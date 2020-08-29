@@ -45,7 +45,7 @@
 
 - name: "Start Guake as daemon"
   shell: nohup guake &
-  when: guake_start_after_setup and guake_proc_id.stdout == ""
+  when: guake_start_after_setup and guake_proc_id.stdout|length == 0
 
 - name: "Cleaning up"
   file:
