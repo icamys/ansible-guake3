@@ -7,20 +7,26 @@
 
 - name: "Installing dependencies"
   become: yes
-  command: "./scripts/bootstrap-dev-debian.sh run make"
-  args:
+  command:
+    cmd: ./scripts/bootstrap-dev-debian.sh run make
     chdir: "{{ guake_git_path }}"
+  tags:
+    - skip_ansible_lint
 
 - name: "Building sources"
   command: "make"
   args:
     chdir: "{{ guake_git_path }}"
+  tags:
+    - skip_ansible_lint
 
-- name: "Installing"
+- name: "Installing Guake"
   become: yes
   command: "make install"
   args:
     chdir: "{{ guake_git_path }}"
+  tags:
+    - skip_ansible_lint
 
 - name: "Add Guake to startup"
   become: yes
@@ -32,9 +38,10 @@
   when: guake_add_to_startup
 
 - name: "Check if there are no Guake instances running"
-  shell: pgrep guake
+  command: pgrep guake
   register: guake_proc_id
   ignore_errors: yes
+  when: guake_start_after_setup
 
 - name: "Start Guake as daemon"
   shell: nohup guake &
