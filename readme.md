@@ -1,4 +1,7 @@
-# Ansible role for Guake 3 terminal
+Ansible role for Guake3 terminal
+================================
+
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-icamys.guake3--terminal-blue)](https://galaxy.ansible.com/icamys/ansible_guake3)
 
 Use this role to install Guake 3 terminal to Ubuntu from sources in your playbook:
 ```yaml
