@@ -1,0 +1,5 @@
+---
+guake_add_to_startup: yes
+guake_start_after_setup: yes
+guake_git_version: 3.7.0
+guake_git_path: /tmp/guake

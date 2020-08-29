@@ -1,0 +1,46 @@
+---
+- name: "Cloning the repository"
+  git:
+    repo: 'https://github.com/Guake/guake'
+    dest: "{{ guake_git_path }}"
+    version: "{{ guake_git_version }}"
+
+- name: "Installing dependencies"
+  become: yes
+  command: "./scripts/bootstrap-dev-debian.sh run make"
+  args:
+    chdir: "{{ guake_git_path }}"
+
+- name: "Building sources"
+  command: "make"
+  args:
+    chdir: "{{ guake_git_path }}"
+
+- name: "Installing"
+  become: yes
+  command: "make install"
+  args:
+    chdir: "{{ guake_git_path }}"
+
+- name: "Add Guake to startup"
+  become: yes
+  copy:
+    src: "{{ guake_git_path }}/guake/data/autostart-guake.desktop"
+    dest: /etc/xdg/autostart/autostart-guake.desktop
+    remote_src: yes
+    mode: 0666
+  when: guake_add_to_startup
+
+- name: "Check if there are no Guake instances running"
+  shell: pgrep guake
+  register: guake_proc_id
+  ignore_errors: yes
+
+- name: "Start Guake as daemon"
+  shell: nohup guake &
+  when: guake_start_after_setup and guake_proc_id.stdout == ""
+
+- name: "Cleaning up"
+  file:
+    path: "{{ guake_git_path }}"
+    state: absent
