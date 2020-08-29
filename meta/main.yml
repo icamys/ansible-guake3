@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Dmitrii Prisacari
+  description: Ansible role for Guake3 terminal
+  role_name: ansible-guake3
+  min_ansible_version: 2.9.12
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+
+  galaxy_tags:
+    - guake
+    - terminal
+
+dependencies: []
