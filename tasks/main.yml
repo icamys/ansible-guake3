@@ -37,6 +37,10 @@
     mode: 0666
   when: guake_add_to_startup
 
+- name: Install custom configuration
+  shell: "dconf load /apps/guake/ < {{ guake_config_path }}"
+  when: guake_config_path != ""
+
 - name: "Check if there are no Guake instances running"
   command: pgrep guake
   register: guake_proc_id

@@ -17,7 +17,7 @@ Start Guake after setup:
 guake_start_after_setup: yes
 ```
 
-Select Guake version 
+Select Guake version
 (see [Guake releases page](https://github.com/Guake/guake/tags) for details) :
 ```yaml
 guake_git_version: 3.7.0
@@ -26,4 +26,9 @@ guake_git_version: 3.7.0
 The place to clone Guake source:
 ```yaml
 guake_git_path: /tmp/guake
+```
+
+Path to custom configuration file:
+```yaml
+guake_config_path: ""
 ```
